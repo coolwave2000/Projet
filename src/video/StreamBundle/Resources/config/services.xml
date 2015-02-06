@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="video_user.registration.form.type" class="video\StreamBundle\Form\Type\RegistrationFormType">
+            <tag name="form.type" alias="video_user_registration" />
+        </service>
+        <service id="event.registration_complet" class="video\StreamBundle\Events\RegistrationConfirmListener">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+    </services>
+
+</container>

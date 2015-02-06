@@ -1,0 +1,10 @@
+video_stream_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: videoStreamBundle:Default:index }
+
+# REGISTRATION
+fos_user_registration_register:
+    pattern: /inscription
+    defaults: { _controller: FOSUserBundle:Registration:register }
+    requirements:
+        _method: GET|POST
