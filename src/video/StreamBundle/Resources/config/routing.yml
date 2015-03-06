@@ -1,10 +1,24 @@
 video_stream_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: videoStreamBundle:Default:index }
+    path:     /
+    defaults: { _controller: videoStreamBundle:Home:index }
 
 # REGISTRATION
-fos_user_registration_register:
-    pattern: /inscription
-    defaults: { _controller: FOSUserBundle:Registration:register }
+&:
+    pattern: /register
+    defaults: { _controller: videoStreamBundle:Home:register }
+    requirements:
+        _method: GET|POST
+
+# Page view video
+stream_view_video:
+    pattern: /view/{video_id}
+    defaults: { _controller: videoStreamBundle:Home:view }
+    requirements:
+        _method: GET
+
+# UPLOAD
+upload_video:
+    pattern: /upload
+    defaults: { _controller: videoStreamBundle:Home:upload }
     requirements:
         _method: GET|POST

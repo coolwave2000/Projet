@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload - SupTube</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset ('css/style.css') }}">
+</head>
+<body>
+<header>
+</header>
+<h1>Upload</h1>
+
+
+<form action="{{ path('upload_video') }}" method="post">
+        <input name="name" type="text" placeholder="Nom" /> <br/>
+        <input name="description" type="text" placeholder="Description" /><br/>
+        <input name="tag" placeholder="Catégorie" /><br/>
+        <input name="date" type="date" readonly="true" placeholder=""/><br/>
+    <label>
+        <select>
+            <option>Public</option>
+            <option>PrivateLink</option>
+            <option>Private</option>
+        </select>
+    </label>
+    <br/>
+    <input type="file" placeholder="" /><br/>
+        <input type="submit" value="Send" />
+</form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
