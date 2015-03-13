@@ -6,21 +6,20 @@ html
 
 body
 {
-    padding: 0;
     margin: 0;
+    padding: 0;
+}
+
+a, p
+{
+    color: #222;
 }
 
 div
 {
     padding: 0;
     margin: 0;
-}
-
-header
-{
-    background-color:  #EB2B31;
-    width: 100%;
-    height: 50px;
+    display: block;
 }
 
 footer
@@ -29,3 +28,146 @@ footer
     height: 100px;
 }
 
+h1, h2, h3
+{
+    margin: 0;
+    color: white;
+}
+
+#block-content {
+    position: absolute;
+    top: 0;
+    left: 300px;
+    color: #fff;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 2em;
+    height: 100%;
+    width: 100%;
+
+}
+
+#header
+{
+    position: relative;
+    background-color: #EB2B31;
+    width: 100%;
+    height: 44px;
+}
+
+.header-block
+{
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 33%;
+}
+
+
+.multilevelpushmenu_wrapper {
+    position: absolute;
+    overflow: hidden;
+    min-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.multilevelpushmenu_wrapper .levelHolderClass {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    width: auto;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    zoom: 1;
+}
+
+.multilevelpushmenu_wrapper .ltr {
+    margin-left: -100%;
+    left: 0;
+}
+
+.multilevelpushmenu_wrapper .rtl {
+    margin-right: -100%;
+    right: 0;
+}
+
+.multilevelpushmenu_wrapper .multilevelpushmenu_inactive {
+    background: white;
+}
+
+.multilevelpushmenu_wrapper h2 {
+    font-size: 20px;
+    padding: 10px;
+    background-color: #EB2B31;
+}
+
+.multilevelpushmenu_wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.multilevelpushmenu_wrapper li {
+    cursor: pointer;
+    border-top: 1px solid #CCC;
+    padding: .4em .4em .4em .4em;
+}
+
+.multilevelpushmenu_wrapper li:last-child {
+    border-bottom: 1px solid #CCC;
+}
+
+.multilevelpushmenu_wrapper li:hover, 
+.multilevelpushmenu_wrapper a:hover 
+{
+    background-color: #EB2B31;
+    color: white;
+
+}
+
+.multilevelpushmenu_wrapper a {
+    display: block;
+    outline: none;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1em;
+    padding: .2em .2em;
+    text-decoration: none;
+    color: black;
+}
+
+
+
+.multilevelpushmenu_wrapper .backItemClass {
+    display: block;
+    padding: .4em .4em .4em .4em;
+    background: white;
+    }
+
+.multilevelpushmenu_wrapper .floatRight {
+    float: right;
+}
+
+.multilevelpushmenu_wrapper .floatLeft {
+    float: left;
+}
+
+.multilevelpushmenu_wrapper .cursorPointer {
+    cursor: pointer;
+}
+
+.multilevelpushmenu_wrapper .iconSpacing_ltr {
+    padding: 0 .4em 0 0;
+}
+
+.multilevelpushmenu_wrapper .iconSpacing_rtl {
+    padding: 0 0 0 .4em;
+}
+
+
+.fa
+{
+    color: black;
+}
