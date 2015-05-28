@@ -1,34 +1,133 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Upload - SupTube</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/style.css') }}">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mettre en ligne</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+    <script src="{{ asset ('js/modernizr.custom.js') }}"></script>
+    <script src="{{ asset ('js/classie.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/component.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/default.css') }}">
+
+
+
 </head>
-<body>
-<header>
-</header>
-<h1>Upload</h1>
+<body class="cbp-spmenu-push">
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    <img src="{{ asset('img/logo.png') }}" />
+    <a href="../app_dev.php/">Accueil</a>
+    <a href="../app_dev.php/recommendation">Vidéos à regarder</a>
+    <a href="../app_dev.php/upload">Mettre en ligne</a>
+    <a href="../app_dev.php/profile">Mon profil</a>
+    <a href="../app_dev.php/myVideo">Mes vidéos</a>
+    <a href="../app_dev.php/history">Historique</a>
+    <a href="../app_dev.php/contact">Contact</a>
+</nav>
+
+<div class="container">
+    <header class="clearfix">
+        <div id="header-block">
+            <button id="showLeftPush">
+                <i class="fa fa-reorder floatRight cursorPointer"></i>
+            </button>
+
+            <form>
+                <input type="text" placeholder="Search on Youtube" name="" id="search-header"/>
+            </form>
+
+            <span id="toggle-login">Log in</span>
+            <span id="toggle-register">Register</span>
+
+            <div id="login">
+                <div id="triangle"></div>
+                <h1>Connexion</h1>
+                <form method="post" action="" id="header-login">
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <input type="submit" value="Log in" />
+                </form>
+            </div>
+        </div>
+    </header>
+    {#    {% set videoCount = 0  %}
+        {% for video in allVideos %}
+                    <p href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoName }}</p>
+                    <span href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoDescription }}</span>
+
+        <h1>{{ videoCount  }}</h1>#}
+
+    <div id="block-content">
+
+        <form action="{{ path('upload_video') }}" method="post">
+            <input name="name" type="text" placeholder="Nom" /> <br/>
+            <input name="description" type="text" placeholder="Description" /><br/>
+            <input name="tag" placeholder="Catégorie" /><br/>
+            <input name="date" type="date" readonly="true" placeholder=""/><br/>
+            <label>
+                <select>
+                    <option>Public</option>
+                    <option>PrivateLink</option>
+                    <option>Private</option>
+                </select>
+            </label>
+            <br/>
+            <input type="file" placeholder="" /><br/>
+            <input type="submit" value="Send" />
+        </form>
+
+        <div style="border: solid 1px #ccc; padding: 10px; text-align: center;">
+            <video id="video" width="320" controls="true">
+                <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"><!-- WebKit -->
+                Your browser does not support HTML5 video tag. Please download FireFox 3.5 or higher.
+            </video><br/>
+            <button onclick="shoot()" style="width: 64px;border: solid 2px #ccc;">Capture</button><br/>
+            <div id="output" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
+        </div>
 
 
-<form action="{{ path('upload_video') }}" method="post">
-        <input name="name" type="text" placeholder="Nom" /> <br/>
-        <input name="description" type="text" placeholder="Description" /><br/>
-        <input name="tag" placeholder="Catégorie" /><br/>
-        <input name="date" type="date" readonly="true" placeholder=""/><br/>
-    <label>
-        <select>
-            <option>Public</option>
-            <option>PrivateLink</option>
-            <option>Private</option>
-        </select>
-    </label>
-    <br/>
-    <input type="file" placeholder="" /><br/>
-        <input type="submit" value="Send" />
-</form>
+        <footer>
+            <p>Copyright © 2015 Design Anamine - Supinfo</p>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="script.js"></script>
+        </footer>
+
+    </div>
+</div>
+{#{% set videoCount = videoCount+1  %}#}
+{#{% endfor %}#}
+
+<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+
+<script>
+    $('#toggle-login').click(function(){
+        $('#login').slideToggle('fast');
+        $('#registrati').hide();
+    });
+</script>
+
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            menuRight = document.getElementById( 'cbp-spmenu-s2' ),
+            menuTop = document.getElementById( 'cbp-spmenu-s3' ),
+            menuBottom = document.getElementById( 'cbp-spmenu-s4' ),
+            showLeft = document.getElementById( 'showLeft' ),
+            showRight = document.getElementById( 'showRight' ),
+            showTop = document.getElementById( 'showTop' ),
+            showBottom = document.getElementById( 'showBottom' ),
+            showLeftPush = document.getElementById( 'showLeftPush' ),
+            showRightPush = document.getElementById( 'showRightPush' ),
+            body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+
+</script>
 </body>
 </html>

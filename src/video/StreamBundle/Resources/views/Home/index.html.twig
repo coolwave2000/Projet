@@ -3,28 +3,77 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youtube</title>
+    <title>Accueil</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
     <script src="{{ asset ('js/modernizr.custom.js') }}"></script>
     <script src="{{ asset ('js/classie.js') }}"></script>
     <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset ('css/component.css') }}">
     <link rel="stylesheet" href="{{ asset ('css/default.css') }}">
+
+    <script>
+        var videoId = 'video';
+        var scaleFactor = 0.25;
+        var snapshots = [];
+
+        /**
+         * Captures a image frame from the provided video element.
+         *
+         * @param {Video} video HTML5 video element from where the image frame will be captured.
+         * @param {Number} scaleFactor Factor to scale the canvas element that will be return. This is an optional parameter.
+         *
+         * @return {Canvas}
+         */
+        function capture(video, scaleFactor) {
+            if(scaleFactor == null){
+                scaleFactor = 1;
+            }
+            var w = video.videoWidth * scaleFactor;
+            var h = video.videoHeight * scaleFactor;
+            var canvas = document.createElement('canvas');
+            canvas.width  = w;
+            canvas.height = h;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, w, h);
+            return canvas;
+        }
+
+        /**
+         * Invokes the <code>capture</code> function and attaches the canvas element to the DOM.
+         */
+        function shoot(output){
+            var video  = document.getElementById(videoId);
+            var output = document.getElementById(output);
+            var canvas = capture(video, scaleFactor);
+            canvas.onclick = function(){
+                window.open(this.toDataURL());
+            };
+            snapshots.unshift(canvas);
+            output.innerHTML = '';
+
+            for(var i=0; i<4; i++){
+                //output.getAttribute('src').value = snapshots[i].toDataURL("image/png");
+                output.appendChild(snapshots[i]);
+            }
+        }
+    </script>
+
 </head>
 <body class="cbp-spmenu-push">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-
     <img src="{{ asset('img/logo.png') }}" />
-    <a href="#">Accueil</a>
-    <a href="#">Vidéos à regarder</a>
-    <a href="#">Mon profil</a>
-    <a href="#">Mes vidéos</a>
-    <a href="#">Historique</a>
-    <a href="#">Contact</a>
+    <a href="../app_dev.php/">Accueil</a>
+    <a href="../app_dev.php/recommendation">Vidéos à regarder</a>
+    <a href="../app_dev.php/upload">Mettre en ligne</a>
+    <a href="../app_dev.php/profile">Mon profil</a>
+    <a href="../app_dev.php/myVideo">Mes vidéos</a>
+    <a href="../app_dev.php/history">Historique</a>
+    <a href="../app_dev.php/contact">Contact</a>
 </nav>
 
 <div class="container">
     <header class="clearfix">
+
         <div id="header-block">
             <button id="showLeftPush">
                 <i class="fa fa-reorder floatRight cursorPointer"></i>
@@ -34,7 +83,8 @@
                 <input type="text" placeholder="Search on Youtube" name="" id="search-header"/>
             </form>
 
-            <span class="button" id="toggle-login">Log in</span>
+            <span id="toggle-login">Log in</span>
+            <span id="toggle-register">Register</span>
 
             <div id="login">
                 <div id="triangle"></div>
@@ -47,125 +97,165 @@
             </div>
         </div>
     </header>
-{#    {% set videoCount = 0  %}
-    {% for video in allVideos %}
-                <p href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoName }}</p>
-                <span href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoDescription }}</span>
+    {#<p href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoName }}</p>#}
+    {#<span href="../app_dev.php/view/{{ video.getId }}" >{{ allVideos[i].getVideoDescription }}</span>#}
 
-    <h1>{{ videoCount  }}</h1>#}
-
+    {#{% for i in range(0,1) %}#}
+    {% if allVideos[0] is defined  %}
     <div id="block-content">
-        {#{% if videoCount < 3 %}#}
         <div id="first-level">
             <div class="big-block" style="margin-right: 50px;">
-                <div class="big-pic">
-                    <img src="" />
+                <div class="big-pic" id ="big-pic">
+                    <img id="pic-1" src="" onclick="shoot('big-pic');" width="525px"/>
                 </div>
                 <div class="big-desc">
-                    <p>Vidéo 1</p>
-                    <span>Description by User 1</span>
+                    <p>{{ allVideos[0].getVideoName() }}</p>
+                    <span>{{ allVideos[0].getVideoDescription }}</span>
                 </div>
             </div>
-            <div class="big-block">
-                <div class="big-pic">
-                    <img src="" />
-                </div>
-                <div class="big-desc">
-                    <p>Vidéo 2</p>
-                    <span>Description by User 2</span>
-                </div>
-            </div>
+            {% endif %}
+            {#{% endfor %}#}
+
+            {#{% for i in range(1,2) %}#}
+                {% if allVideos[1] is defined  %}
+                    <div class="big-block">
+                        <div class="big-pic">
+                            <a href="../app_dev.php/view/{{ allVideos[1].getId }}"> <img src="http://www.moviepilot.de/files/images/0399/5184/snapshot20080707231028.jpg" /></a>
+                        </div>
+                        <div class="big-desc">
+                            <p>{{ allVideos[1].getVideoName() }}</p>
+                            <span>{{ allVideos[1].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {#{% endfor %}#}
         </div>
-        {#{% elseif videoCount < 6 %}#}
-            <div id="second-level">
+
+        {#{% for i in range(3,4) %}#}
+        {% if allVideos[2] is defined  %}
+        <div id="second-level">
             <div class="medium-block">
                 <div class="medium-pic">
                     <img src="" />
                 </div>
                 <div class="medium-desc">
-                    <p>Vidéo 3</p>
-                    <span>Description by User 3</span>
+                    <p>{{ allVideos[2].getVideoName() }}</p>
+                    <span>{{ allVideos[2].getVideoDescription }}</span>
                 </div>
             </div>
-            <div class="medium-block" style="margin: 0 25px 0 25px">
-                <div class="medium-pic">
-                    <img src="" />
-                </div>
-                <div class="medium-desc">
-                    <p>Vidéo 4</p>
-                    <span>Description by User 4</span>
-                </div>
-            </div>
-            <div class="medium-block">
-                <div class="medium-pic">
-                    <img src="" />
-                </div>
-                <div class="medium-desc">
-                    <p>Vidéo 5</p>
-                    <span>Description by User 5</span>
-                </div>
-            </div>
+            {% endif %}
+            {#{% endfor %}#}
+
+            {#{% for i in range(4,5) %}#}
+                {% if allVideos[3] is defined  %}
+                    <div class="medium-block" style="margin: 0 25px 0 25px">
+                        <div class="medium-pic">
+                            <img src="" />
+                        </div>
+                        <div class="medium-desc">
+                            <p>{{ allVideos[3].getVideoName() }}</p>
+                            <span>{{ allVideos[3].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {#{% endfor %}#}
+
+
+                {% if allVideos[4] is defined  %}
+                    <div class="medium-block">
+                        <div class="medium-pic">
+                            <img src="" />
+                        </div>
+                        <div class="medium-desc">
+                            <p>{{ allVideos[4].getVideoName() }}</p>
+                            <span>{{ allVideos[4].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
         </div>
+
         <div id="third-level">
-            <div class="little-block">
-                <div class="little-pic">
-                    <img src="" />
-                </div>
-                <div class="little-desc">
-                    <p>Vidéo 6</p>
-                    <span>Description by User 6</span>
-                </div>
-            </div>
-            <div class="little-block">
-                <div class="little-pic">
-                    <img src="" />
-                </div>
-                <div class="little-desc">
-                    <p>Vidéo 7</p>
-                    <span>Description by User 7</span>
-                </div>
-            </div>
-            <div class="little-block">
-                <div class="little-pic">
-                    <img src="" />
-                </div>
-                <div class="little-desc">
-                    <p>Vidéo 8</p>
-                    <span>Description by User 8</span>
-                </div>
-            </div>
-            <div class="little-block">
-                <div class="little-pic">
-                    <img src="" />
-                </div>
-                <div class="little-desc">
-                    <p>Vidéo 9</p>
-                    <span>Description by User 9</span>
-                </div>
-            </div>
-            <div class="little-block">
-                <div class="little-pic">
-                    <img src="" />
-                </div>
-                <div class="little-desc">
-                    <p>Vidéo 10</p>
-                    <span>Description by User 10</span>
-                </div>
-            </div>
+                {% if allVideos[5] is defined  %}
+                    <div class="little-block">
+                        <div class="little-pic">
+                            <img src="" />
+                        </div>
+                        <div class="little-desc">
+                            <p>{{ allVideos[5].getVideoName() }}</p>
+                            <span>{{ allVideos[5].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if allVideos[6] is defined  %}
+                    <div class="little-block">
+                        <div class="little-pic">
+                            <img src="" />
+                        </div>
+                        <div class="little-desc">
+                            <p>{{ allVideos[6].getVideoName() }}</p>
+                            <span>{{ allVideos[6].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if allVideos[7] is defined  %}
+                    <div class="little-block">
+                        <div class="little-pic">
+                            <img src="" />
+                        </div>
+                        <div class="little-desc">
+                            <p>{{ allVideos[7].getVideoName() }}</p>
+                            <span>{{ allVideos[7].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if allVideos[8] is defined  %}
+                    <div class="little-block">
+                        <div class="little-pic">
+                            <img src="" />
+                        </div>
+                        <div class="little-desc">
+                            <p>{{ allVideos[8].getVideoName() }}</p>
+                            <span>{{ allVideos[8].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if allVideos[9] is defined  %}
+                    <div class="little-block">
+                        <div class="little-pic">
+                            <img src="" />
+                        </div>
+                        <div class="little-desc">
+                            <p>{{ allVideos[9].getVideoName() }}</p>
+                            <span>{{ allVideos[9].getVideoDescription }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+
         </div>
-        {#{% endif %}#}
 
         <footer>
             <p>Copyright © 2015 Design Anamine - Supinfo</p>
 
-        </footer>
+            <div style="border: solid 1px #ccc; padding: 10px; text-align: center;">
+                <video id="video" width="320" controls="true">
+                    <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"><!-- WebKit -->
+                    Your browser does not support HTML5 video tag. Please download FireFox 3.5 or higher.
+                </video><br/>
+                <button onclick="shoot()" style="width: 64px;border: solid 2px #ccc;">Capture</button><br/>
+                <div id="output" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
+            </div>
 
+        </footer>
     </div>
 </div>
-{#{% set videoCount = videoCount+1  %}#}
-{#{% endfor %}#}
-<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
+<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
 <script>
     $('#toggle-login').click(function(){
