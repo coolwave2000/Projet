@@ -26,53 +26,6 @@
 
 <body class="cbp-spmenu-push" onload="shoot('big-pic');" >
 
-<div class="modals">
-    <div class="modals__content">
-        <div class="dialog dialog--register">
-            <h1 class="dialog__header">Inscription</h1>
-            <form class="dialog__body register">
-                <div class="login__field">
-                    <div class="login__field__icon login__field__icon--username">
-                        <svg viewBox="0 0 512 512"><use xlink:href="#user-icon"></svg>
-                    </div>
-                    <input class="login__field__input" type="text" placeholder="E-mail" />
-                </div>
-                <div class="login__field">
-                    <div class="login__field__icon login__field__icon--password">
-                        <svg viewBox="0 0 512 512"><use xlink:href="#key-icon"></svg>
-                    </div>
-                    <input class="login__field__input" type="password" placeholder="Mot de passe" />
-                </div>
-                <button type="submit" class="dialog__register">S'inscrire</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal">
-    <div class="modal__content">
-        <div class="dialog dialog--login">
-            <h1 class="dialog__header">Connexion</h1>
-
-            <form class="dialog__body login">
-                <div class="login__field">
-                    <div class="login__field__icon login__field__icon--username">
-                        <svg viewBox="0 0 512 512"><use xlink:href="#user-icon"></svg>
-                    </div>
-                    <input class="login__field__input" type="text" placeholder="E-mail" />
-                </div>
-                <div class="login__field">
-                    <div class="login__field__icon login__field__icon--password">
-                        <svg viewBox="0 0 512 512"><use xlink:href="#key-icon"></svg>
-                    </div>
-                    <input class="login__field__input" type="password" placeholder="Mot de passe" />
-                </div>
-                <button type="submit" class="dialog__action">Se connecter</button>
-            </form>
-        </div>
-    </div>
-</div>
 
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
      width="512px" height="512px" xml:space="preserve" class="icon">
@@ -93,18 +46,16 @@
 
 
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-    <img src="{{ asset('img/logo.png') }}" />
+
+    <h2 style="color:white; text-align:center; margin-top:20px; margin-bottom:70px;">Mewpipe</h2>
 
     {% if app.user %}
         <a href="{{ path('video_stream_homepage') }}">Accueil</a>
-        <a href="{{ path('recommendation_page') }}">Vidéos à regarder</a>
-        <a href="{{ path('upload_video') }}">Mettre en ligne</a>
+        <a href="{{ path('upload_video') }}">Partager une vidéo</a>
         <a href="{{ path('profile_page') }}">Mon profil</a>
         <a href="{{ path('myVideo_page') }}">Mes vidéos</a>
-        <a href="{{ path('contact_page') }}">Contact</a>
     {% else %}
         <a href="{{ path('video_stream_homepage') }}">Accueil</a>
-        <a href="{{ path('contact_page') }}">Contact</a>
     {% endif %}
 
 </nav>
@@ -118,12 +69,9 @@
             </button>
 
             <form>
-                <input type="text" placeholder="Search on Youtube" name="" id="search-header"/>
+                <input type="text" placeholder="Search on Mewpipe" name="" id="search-header"/>
             </form>
 
-            {#<a href="{{ path('registration_user') }}">#}
-                {#<span id="toggle-register">Register</span>#}
-            {#</a>#}
 
             {% if app.user %}
                 <a href="../app_dev.php/logout">
@@ -132,29 +80,27 @@
                 <h5>Bienvenue, </h5>
             {% else %}
                 <div class="dialog dialog--welcome">
-                    <button id="login-pop" class="dialog__action">Connexion</button>
+                    <a id="login-pop" style="height:auto;" href="../../web/app_dev.php/register">Inscription</a>
                 </div>
 
-                <div class="dialog dialog--register">
-                    <button id="inscription-pop" class="dialog__register">Inscription</button>
-                </div>
             {% endif %}
         </div>
     </header>
 
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {% else %}
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
+    <form action="{{ path("fos_user_security_check") }}" method="post" style="text-align:center;">
         <input type="hidden" name="_csrf_token" value="{{ fos_csrf_provider.generateCsrfToken('authenticate') }}" />
 
-        <label for="username">{{ 'security.login.username'|trans }}</label>
+        <label for="username">{{ 'Username' }}</label>
         <input type="text" id="username" name="_username" value="" required="required" />
 
-        <label for="password">{{ 'security.login.password'|trans }}</label>
+        <label for="password">{{ 'Password' }}</label>
         <input type="password" id="password" name="_password" required="required" />
-        <br /><br />
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+        <input type="submit" id="_submit" name="_submit" value="{{ 'Connexion' }}" />
     </form>
-
+    {% endif %}
 
 
     {#<p href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoName }}</p>#}
@@ -337,7 +283,7 @@
         </div>
 
         <footer>
-            <p>Copyright © 2015 Design Anamine - Supinfo</p>
+            <p>Copyright © 2015 Anis - Supinfo</p>
         </footer>
     </div>
 </div>

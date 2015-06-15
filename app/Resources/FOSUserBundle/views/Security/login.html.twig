@@ -3,11 +3,11 @@
 {% endif %}
 <form action="{{ path("fos_user_security_check") }}" method="post" class="dialog__body login">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    <label for="username">{{ 'security.login.username'|trans }}</label>
+    <label for="username">{{ 'username' }}</label>
     <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
-    <label for="password">{{ 'security.login.password'|trans }}</label>
+    <label for="password">{{ 'password' }}</label>
     <input type="password" id="password" name="_password" required="required" />
     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    <label for="remember_me">{{ 'remember_me' }}</label>
+    <input type="submit" id="_submit" name="_submit" value="{{ 'submit'|trans }}" />
 </form>

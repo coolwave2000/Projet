@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Aminidir
- * Date: 06/03/15
- * Time: 13:09
- */
-
 namespace video\StreamBundle\Controller;
 
 
@@ -167,7 +160,7 @@ class HomeController extends Controller
             $video->setVideoPublicationDate(new \DateTime());
             $em->persist($video);
             $em->flush();
-            return new Response("got it");
+            return $this -> redirect($this->generateUrl('myVideo_page'));
 
         }
         else

@@ -132,7 +132,7 @@ canvas
 
 #search-header
 {
-    background-color: #EB2B31;
+    background-color: #04a651;
     padding: 10px 10px 10px 10px;
     width: 350px;
     margin-top: 8px;
@@ -179,7 +179,7 @@ input:-moz-placeholder {
 }
 
 #showLeftPush {
-    background-color: #EB2B31;
+    background-color: #04a651;
     border: 0;
     margin: 14px 0 0 0;
     float: left;
@@ -379,13 +379,13 @@ input:-moz-placeholder {
 
 #toggle-login:hover
 {
-    background-color: #ff3c00;
+    background-color: #04a651;
     cursor: pointer;
 }
 
 #toggle-register:hover
 {
-    background-color: #ff3c00;
+    background-color: #04a651;
     cursor: pointer;
 }
 
@@ -407,14 +407,14 @@ input:-moz-placeholder {
 #triangle
 {
     border-right: 12px solid rgba(0, 0, 0, 0);
-    border-bottom: 12px solid #EB2B31;
+    border-bottom: 12px solid #04a651;
     border-left: 12px solid rgba(0, 0, 0, 0);
     margin: 0 90px;
 }
 
 #login h1
 {
-    background: #EB2B31;
+    background: #04a651;
     padding: 10px 0;
     font-size: 16px;
     text-align: center;
@@ -437,7 +437,7 @@ input:-moz-placeholder {
 input[type="submit"]
 {
     width: 190px;
-    background: #EB2B31;
+    background: #04a651;
     border: 0;
     padding: 5px;
     font-size: 12px;
@@ -520,7 +520,7 @@ input[type="submit"]:hover
 {
     padding: 5px 27px;
     margin: 5px;
-    border: 1px solid #EB2B31;
+    border: 1px solid #04a651;
 }
 
 #form-upload input[type = date]
@@ -545,7 +545,7 @@ input[type="submit"]:hover
 {
     height: 200px;
     width: 100%;
-    border: 1px solid red;
+    border: 1px solid #04a651;
 }
 
 #aside-view hr
@@ -764,7 +764,7 @@ input[type="submit"]:hover
     outline: none;
     border: none;
     border-radius: 0;
-    background-image: linear-gradient(#B60000, #C30606);
+    background-image: linear-gradient(#04a651, #04a651);
     color: #FFF;
     font-size: 16px;
     font-family: Calibri;
@@ -912,7 +912,7 @@ input[type="submit"]:hover
 #section-view > span.number-view > span
 {
     font-weight: bold;
-    color: red;
+    color: #04a651;
 }
 
 #block-content > a > div > div.about-myvideo > span.number-view
@@ -926,7 +926,7 @@ input[type="submit"]:hover
 #block-content > a > div > div.about-myvideo > span.number-view > span
 {
     font-weight: bold;
-    color: red;
+    color: #04a651;
 }
 
 
@@ -956,7 +956,7 @@ input[type="submit"]:hover
 {
     position: absolute;
     bottom: 30px;
-    background-color: #F00;
+    background-color: #04a651;
     padding: 5px;
     font-size: 12px;
 }
@@ -964,7 +964,7 @@ input[type="submit"]:hover
 
 #section-view a
 {
-    background-color: red;
+    background-color: #04a651;
     padding: 10px;
     color: white;
     position: absolute;
@@ -1016,4 +1016,5 @@ input[type="submit"]:hover
     top: 60px;
     left: 100px;
 }
+
 
