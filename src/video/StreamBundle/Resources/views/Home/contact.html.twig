@@ -17,13 +17,12 @@
 <body class="cbp-spmenu-push">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
     <img src="{{ asset('img/logo.png') }}" />
-    <a href="../app_dev.php/">Accueil</a>
-    <a href="../app_dev.php/recommendation">Vidéos à regarder</a>
-    <a href="../app_dev.php/upload">Mettre en ligne</a>
-    <a href="../app_dev.php/profile">Mon profil</a>
-    <a href="../app_dev.php/myVideo">Mes vidéos</a>
-    <a href="../app_dev.php/history">Historique</a>
-    <a href="../app_dev.php/contact">Contact</a>
+    <a href="{{ path('video_stream_homepage') }}">Accueil</a>
+    <a href="{{ path('recommendation_page') }}">Vidéos à regarder</a>
+    <a href="{{ path('upload_video') }}">Mettre en ligne</a>
+    <a href="{{ path('profile_page') }}">Mon profil</a>
+    <a href="{{ path('myVideo_page') }}">Mes vidéos</a>
+    <a href="{{ path('contact_page') }}">Contact</a>
 </nav>
 
 <div class="container">
@@ -60,6 +59,7 @@
 
     <div id="block-content">
 
+        {%  render(controller('FOSUserBundle:Security:login')) %}
 
 
 
@@ -73,7 +73,6 @@
 {#{% set videoCount = videoCount+1  %}#}
 {#{% endfor %}#}
 
-<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
 
 <script>

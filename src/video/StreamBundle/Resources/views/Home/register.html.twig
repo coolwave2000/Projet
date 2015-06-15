@@ -1,32 +1,133 @@
-
-
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Home - SupTube</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/style.css') }}">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+    <script src="{{ asset ('js/modernizr.custom.js') }}"></script>
+    <script src="{{ asset ('js/classie.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/component.css') }}">
+    <link rel="stylesheet" href="{{ asset ('css/default.css') }}">
+
+
+
 </head>
-<body>
-<header>
-</header>
-<h1>Register</h1>
+<body class="cbp-spmenu-push">
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+    <img src="{{ asset('img/logo.png') }}" />
+    <a href="{{ path('video_stream_homepage') }}">Accueil</a>
+    <a href="{{ path('recommendation_page') }}">Vidéos à regarder</a>
+    <a href="{{ path('upload_video') }}">Mettre en ligne</a>
+    <a href="{{ path('profile_page') }}">Mon profil</a>
+    <a href="{{ path('myVideo_page') }}">Mes vidéos</a>
+    <a href="{{ path('contact_page') }}">Contact</a>
+</nav>
 
-<form action="{{ path('fos_user_registration_register') }}" method="post">
-    <div id="fos_user_registration_form"><div>
-            <label for="fos_user_registration_form_email" class="required">Email:</label>
-            <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" />
+<div class="container">
+    <header class="clearfix">
+        <div id="header-block">
+            <button id="showLeftPush">
+                <i class="fa fa-reorder floatRight cursorPointer"></i>
+            </button>
+
+            <form>
+                <input type="text" placeholder="Search on Youtube" name="" id="search-header"/>
+            </form>
+
+            <span id="toggle-login">Log in</span>
+            <span id="toggle-register">Register</span>
+
+            <div id="login">
+                <div id="triangle"></div>
+                <h1>Connexion</h1>
+                <form method="post" action="" id="header-login">
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <input type="submit" value="Log in" />
+                </form>
+            </div>
         </div>
-        <div>
-            <label for="fos_user_registration_form_username" class="required">Username:</label><input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="255" pattern=".{2,}" /></div><div>                <label for="fos_user_registration_form_plainPassword_first" class="required">Password:</label><input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required" /></div><div>                <label for="fos_user_registration_form_plainPassword_second" class="required">Repeat password:</label><input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" /></div><div>
-            <label for="fos_user_registration_form_name" class="required">Name</label><input type="text" id="fos_user_registration_form_name" name="fos_user_registration_form[name]" required="required" maxlength="255" /></div></div>
-    <div>
-        <input type="submit" value="Register" />
+    </header>
+    {#    {% set videoCount = 0  %}
+        {% for video in allVideos %}
+                    <p href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoName }}</p>
+                    <span href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoDescription }}</span>
+
+        <h1>{{ videoCount  }}</h1>#}
+
+    <div id="block-content">
+         <form action="{{ path('registration_user') }}" method="post" id="form-register"> 
+            <h2>Inscription</h2>
+            <!--
+            <div id="fos_user_registration_form"><div> 
+                <div> 
+                    <label for="fos_user_registration_form_name" class="required">Prénom</label><br/>
+                    <input type="text" id="fos_user_registration_form_name" name="fos_user_registration_form[name]" required="required" maxlength="255" />
+                </div>
+                <div> 
+                    <label for="fos_user_registration_form_username" class="required">Pseudonyme</label><br/>
+                    <input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="255" pattern=".{2,}" />
+                </div>
+                <div>
+                    <label for="fos_user_registration_form_email" class="required">Email</label> <br/>
+                    <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" /> 
+                </div> 
+                <div>
+                    <label for="fos_user_registration_form_plainPassword_first" class="required">Mot de passe:</label><br/>
+                    <input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required" />
+                </div>
+                <div>
+                    <label for="fos_user_registration_form_plainPassword_second" class="required">Confirmez votre mot de passe:</label><br/>
+                    <input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" />
+                </div>
+            </div> 
+            <div> -->
+            {{ form_widget(form) }}
+                <input type="submit" value="S'inscrire" /> 
+
+        </form>
+
     </div>
-</form>
+</div>
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="script.js"></script>
+
+{#{% set videoCount = videoCount+1  %}#}
+{#{% endfor %}#}
+
+<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+
+<script>
+    $('#toggle-login').click(function(){
+        $('#login').slideToggle('fast');
+        $('#registrati').hide();
+    });
+</script>
+
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+            menuRight = document.getElementById( 'cbp-spmenu-s2' ),
+            menuTop = document.getElementById( 'cbp-spmenu-s3' ),
+            menuBottom = document.getElementById( 'cbp-spmenu-s4' ),
+            showLeft = document.getElementById( 'showLeft' ),
+            showRight = document.getElementById( 'showRight' ),
+            showTop = document.getElementById( 'showTop' ),
+            showBottom = document.getElementById( 'showBottom' ),
+            showLeftPush = document.getElementById( 'showLeftPush' ),
+            showRightPush = document.getElementById( 'showRightPush' ),
+            body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+
+</script>
 </body>
 </html>

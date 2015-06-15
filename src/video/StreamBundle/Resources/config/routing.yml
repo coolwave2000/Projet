@@ -3,7 +3,7 @@ video_stream_homepage:
     defaults: { _controller: videoStreamBundle:Home:index }
 
 # REGISTRATION
-&:
+registration_user:
     pattern: /register
     defaults: { _controller: videoStreamBundle:Home:register }
     requirements:
@@ -22,3 +22,66 @@ upload_video:
     defaults: { _controller: videoStreamBundle:Home:upload }
     requirements:
         _method: GET|POST
+
+# PROFIL
+profile_page:
+    pattern: /profile
+    defaults: { _controller: videoStreamBundle:Home:profile }
+    requirements:
+        _method: GET|POST
+
+# CONTACT
+contact_page:
+    pattern: /contact
+    defaults: { _controller: videoStreamBundle:Home:contact }
+    requirements:
+        _method: GET
+
+# MYVIDEO
+myVideo_page:
+    pattern: /myVideo
+    defaults: { _controller: videoStreamBundle:Home:myVideo }
+    requirements:
+        _method: GET
+
+# HISTORY
+history_page:
+    pattern: /history
+    defaults: { _controller: videoStreamBundle:Home:history }
+    requirements:
+        _method: GET
+
+# RECOMMENDATION
+recommendation_page:
+    pattern: /recommendation
+    defaults: { _controller: videoStreamBundle:Home:recommendation }
+    requirements:
+        _method: GET
+
+# SHARE
+share_page:
+    pattern: /shareIt/{id}
+    defaults: {_controller: videoStreamBundle:Home:shareIt}
+    requirements:
+        _method: GET|POST
+
+#GETSHARE
+getShare_page:
+    pattern: /getShare/{id}
+    defaults: { _controller: videoStreamBundle:Home:getShare}
+    requirements:
+        _method: GET
+
+#EDITVIDEO
+editVideo_page:
+    pattern: /editVideoInfo/{id}
+    defaults: { _controller: videoStreamBundle:Home:getEdit}
+    requirements:
+      _method: GET|POST
+
+#UPDATEVIDEO
+updateVideo_page:
+  pattern: /updateVideoInfo/{id}
+  defaults: { _controller: videoStreamBundle:Home:updateVideoInfo}
+  requirements:
+     _method: GET|POST

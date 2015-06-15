@@ -15,19 +15,92 @@
 
 </head>
 <body class="cbp-spmenu-push">
+<div class="modals">
+    <div class="modals__content">
+        <div class="dialog dialog--register">
+            <h1 class="dialog__header">Inscription</h1>
+            <form class="dialog__body register">
+                <div class="login__field">
+                    <div class="login__field__icon login__field__icon--username">
+                        <svg viewBox="0 0 512 512"><use xlink:href="#user-icon"></svg>
+                    </div>
+                    <input class="login__field__input" type="text" placeholder="E-mail" />
+                </div>
+                <div class="login__field">
+                    <div class="login__field__icon login__field__icon--password">
+                        <svg viewBox="0 0 512 512"><use xlink:href="#key-icon"></svg>
+                    </div>
+                    <input class="login__field__input" type="password" placeholder="Mot de passe" />
+                </div>
+                <button type="submit" class="dialog__register">S'inscrire</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal">
+    <div class="modal__content">
+        <div class="dialog dialog--login">
+            <h1 class="dialog__header">Connexion</h1>
+
+            <form class="dialog__body login">
+                <div class="login__field">
+                    <div class="login__field__icon login__field__icon--username">
+                        <svg viewBox="0 0 512 512"><use xlink:href="#user-icon"></svg>
+                    </div>
+                    <input class="login__field__input" type="text" placeholder="E-mail" />
+                </div>
+                <div class="login__field">
+                    <div class="login__field__icon login__field__icon--password">
+                        <svg viewBox="0 0 512 512"><use xlink:href="#key-icon"></svg>
+                    </div>
+                    <input class="login__field__input" type="password" placeholder="Mot de passe" />
+                </div>
+                <button type="submit" class="dialog__action">Se connecter</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="512px" height="512px" xml:space="preserve" class="icon">
+<path id="user-icon" d="M377.055,170.75c0,66.275-53.726,120-120,120s-120-53.725-120-120c0-66.273,53.726-120,120-120
+    S377.055,104.477,377.055,170.75z M356.101,296.41c-27.968,22.084-62.633,34.34-99.046,34.34c-36.835,0-71.839-12.543-99.934-35.051
+    C83.067,322.875,50,417.877,50,461.25h412C462,418.25,428.678,323.926,356.101,296.41z"/>
+</svg>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="512px" height="512px" xml:space="preserve" class="icon">
+<path id="key-icon" d="M286.53,325.487l-45.314,45.313h-43.874l0.001,43.873l-45.745-0.002v41.345H50v-70.458l145.737-145.737
+    C212.174,278.996,244.714,310.706,286.53,325.487z M425.646,92.338c48.473,48.474,48.471,127.064-0.001,175.536
+    c-48.475,48.476-127.062,48.476-175.537,0.001c-48.473-48.472-48.475-127.062,0-175.537
+    C298.58,43.865,377.173,43.865,425.646,92.338z M400.732,117.165c-12.024-12.021-31.517-12.022-43.538,0
+    c-12.022,12.023-12.022,31.516,0,43.538c12.021,12.022,31.513,12.021,43.536-0.001C412.754,148.679,412.752,129.187,400.732,117.165
+    z"/>
+</svg>
+
+
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
     <img src="{{ asset('img/logo.png') }}" />
-    <a href="../app_dev.php/">Accueil</a>
-    <a href="../app_dev.php/recommendation">Vidéos à regarder</a>
-    <a href="../app_dev.php/upload">Mettre en ligne</a>
-    <a href="../app_dev.php/profile">Mon profil</a>
-    <a href="../app_dev.php/myVideo">Mes vidéos</a>
-    <a href="../app_dev.php/history">Historique</a>
-    <a href="../app_dev.php/contact">Contact</a>
+
+    {% if app.user %}
+        <a href="{{ path('video_stream_homepage') }}">Accueil</a>
+        <a href="{{ path('recommendation_page') }}">Vidéos à regarder</a>
+        <a href="{{ path('upload_video') }}">Mettre en ligne</a>
+        <a href="{{ path('profile_page') }}">Mon profil</a>
+        <a href="{{ path('myVideo_page') }}">Mes vidéos</a>
+        <a href="{{ path('contact_page') }}">Contact</a>
+    {% else %}
+        <a href="{{ path('video_stream_homepage') }}">Accueil</a>
+        <a href="{{ path('contact_page') }}">Contact</a>
+    {% endif %}
+
 </nav>
 
 <div class="container">
     <header class="clearfix">
+
         <div id="header-block">
             <button id="showLeftPush">
                 <i class="fa fa-reorder floatRight cursorPointer"></i>
@@ -37,18 +110,30 @@
                 <input type="text" placeholder="Search on Youtube" name="" id="search-header"/>
             </form>
 
-            <span id="toggle-login">Log in</span>
-            <span id="toggle-register">Register</span>
+            {#<a href="{{ path('registration_user') }}">#}
+            {#<span id="toggle-register">Register</span>#}
+            {#</a>#}
 
-            <div id="login">
-                <div id="triangle"></div>
-                <h1>Connexion</h1>
-                <form method="post" action="" id="header-login">
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <input type="submit" value="Log in" />
-                </form>
-            </div>
+            {% if app.user %}
+                <a href="../app_dev.php/logout">
+                    <h6>Se déconnecter</h6>
+                </a>
+                <h5>Bienvenue, </h5>
+            {% else %}
+                <div class="dialog dialog--welcome">
+                    <button id="login-pop" class="dialog__action">Connexion</button>
+                </div>
+
+                <div class="dialog dialog--register">
+                    <button id="inscription-pop" class="dialog__register">Inscription</button>
+                </div>
+
+
+            {% endif %}
+
+
+
+
         </div>
     </header>
     {#    {% set videoCount = 0  %}
@@ -60,10 +145,13 @@
 
     <div id="block-content">
 
-        <form action="{{ path('upload_video') }}" method="post">
+
+        <form action="{{ path('upload_video') }}" method="post" {{ form_enctype(form) }} id="form-upload">
+{#            <h2>Uploadez votre vidéo</h2>
+
             <input name="name" type="text" placeholder="Nom" /> <br/>
             <input name="description" type="text" placeholder="Description" /><br/>
-            <input name="tag" placeholder="Catégorie" /><br/>
+            <input name="tag" placeholder="Catégorie" type="text" /><br/>
             <input name="date" type="date" readonly="true" placeholder=""/><br/>
             <label>
                 <select>
@@ -74,10 +162,13 @@
             </label>
             <br/>
             <input type="file" placeholder="" /><br/>
+            <input type="submit" value="Envoyez" />#}
+
+            {{ form_widget(form) }}
             <input type="submit" value="Send" />
         </form>
 
-        <div style="border: solid 1px #ccc; padding: 10px; text-align: center;">
+        <div style="border: solid 1px #ccc; padding: 10px; text-align: center; display: none;">
             <video id="video" width="320" controls="true">
                 <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"><!-- WebKit -->
                 Your browser does not support HTML5 video tag. Please download FireFox 3.5 or higher.

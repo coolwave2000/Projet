@@ -17,13 +17,12 @@
 <body class="cbp-spmenu-push">
 <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
     <img src="{{ asset('img/logo.png') }}" />
-    <a href="../app_dev.php/">Accueil</a>
-    <a href="../app_dev.php/recommendation">Vidéos à regarder</a>
-    <a href="../app_dev.php/upload">Mettre en ligne</a>
-    <a href="../app_dev.php/profile">Mon profil</a>
-    <a href="../app_dev.php/myVideo">Mes vidéos</a>
-    <a href="../app_dev.php/history">Historique</a>
-    <a href="../app_dev.php/contact">Contact</a>
+    <a href="{{ path('video_stream_homepage') }}">Accueil</a>
+    <a href="{{ path('recommendation_page') }}">Vidéos à regarder</a>
+    <a href="{{ path('upload_video') }}">Mettre en ligne</a>
+    <a href="{{ path('profile_page') }}">Mon profil</a>
+    <a href="{{ path('myVideo_page') }}">Mes vidéos</a>
+    <a href="{{ path('contact_page') }}">Contact</a>
 </nav>
 
 <div class="container">
@@ -51,27 +50,32 @@
             </div>
         </div>
     </header>
-    {#    {% set videoCount = 0  %}
-        {% for video in allVideos %}
-                    <p href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoName }}</p>
-                    <span href="../app_dev.php/view/{{ video.getId }}" >{{ video.getVideoDescription }}</span>
 
-        <h1>{{ videoCount  }}</h1>#}
 
     <div id="block-content">
-
-
-
+        <h1>Vidéos à regarder</h1>
+            {% for video in recommendedVideos %}
+            <a href="../app_dev.php/view/{{ video.getId }}">
+            <div class="block-myvideo">
+                <div class="pic-myvideo"></div>
+                <div class="about-myvideo">
+                    <p>{{ video.getVideoName }}</p>
+                    <span>{{ video.getVideoDescription }}</span>
+                    <br/>
+                    <span class="number-view"><span>{{ video.videoViewCount}}</span> views</span>
+                    <br/>
+                </div>
+            </div>
+            </a>
+            {% endfor %}
 
         <footer>
             <p>Copyright © 2015 Design Anamine - Supinfo</p>
-
         </footer>
 
     </div>
 </div>
-{#{% set videoCount = videoCount+1  %}#}
-{#{% endfor %}#}
+
 
 <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 

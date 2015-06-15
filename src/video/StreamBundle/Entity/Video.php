@@ -8,14 +8,19 @@
 
 namespace video\StreamBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="video")
+ * @ORM\HasLifecycleCallbacks
  */
 class Video {
 
 
+    private $temp;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -23,9 +28,78 @@ class Video {
      */
     protected $id;
 
+
+
     /**
      * @return mixed
      */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+
+    /**
+     * @Assert\File(maxSize="500M", mimeTypes={"video/mp4","video/webm","video/ogg"})
+     */
+    protected $file;
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+
+        if(isset($this->videoLink)) {
+            $this->temp = $this->videoLink;
+            $this->videoLink = null;
+        } else {
+            $this->videoLink = 'initial.jpg';
+        }
+    }
+    public $filename;
+
+    /**
+     * @return mixed
+     */
+    public function getFilename()
+    {
+        if($this->filename == null) {
+            $this->filename = sha1(uniqid(mt_rand(), true));
+            return $this->filename;
+        }
+        return $this->filename;
+    }
+
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if ($this->getFile() !== null) {
+            //$filename = sha1(uniqid(mt_rand(), true));
+            $this->videoLink = $this->getFilename().'.'.$this->getFile()->getClientOriginalExtension();
+        }
+    }
+
     public function getId()
     {
         return $this->id;
@@ -181,11 +255,45 @@ class Video {
      * @ORM\Column(type="string", length=255)
      */
     protected $videoLink;
+    public function getAbsolutePath()
+    {
+        return null == $this->videoLink ? null : $this->getUploadRootDir();
+    }
+
+    public function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+    public function getUploadDir()
+    {
+        return 'uploads/videos';
+    }
 
     /**
      * @ORM\Column(type="integer", length=255)
      */
     protected $videoViewCount;
+
+    /**
+     * @ORM\Column(type="integer", length=255)
+     */
+    protected $videoShareCount;
+
+    /**
+     * @return mixed
+     */
+    public function getVideoShareCount()
+    {
+        return $this->videoShareCount;
+    }
+
+    /**
+     * @param mixed $videoShareCount
+     */
+    public function setVideoShareCount($videoShareCount)
+    {
+        $this->videoShareCount = $videoShareCount;
+    }
 
     /**
      * @ORM\Column(type="date", length=255)
@@ -198,13 +306,41 @@ class Video {
     protected $videoDuration;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="video")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="videos")
      * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
-    protected $videoAuthor;
+    protected $user;
+
+    /**
+     *@ORM\ManyToMany(targetEntity="Tag")
+     *@ORM\JoinTable(name="video_tags", joinColumns={@ORM\JoinColumn(name="video_id", referencedColumnName="id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")})
+     */
+    protected $tags;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     protected $videoPrivacy;
+
+
+    public function upload()
+    {
+        if (null == $this->getFile()) {
+            return new Response("in the upload file nul");
+        }
+
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getFilename().'.'.$this->getFile()->getClientOriginalExtension()
+        );
+        return new Response("in the upload file");
+
+        /*if(isset($this->temp)) {
+            unlink($this->getUploadRootDir(), $this->temp);
+            $this->temp = null;
+
+        }
+        $this->file = null;*/
+    }
 }

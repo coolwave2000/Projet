@@ -1,0 +1,14 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <form method="post" name="editVideo" action="../updateVideoInfo/{{ myVideo.getID }}">
+            <input type="text" name="videoName" value="{{ myVideo.getVideoName }}" ><br/>
+            <input type="text" name="videoDesc" value="{{ myVideo.getVideoDescription }}" ><br/>
+            <input type="text" name="videoPrivacy" value ="{{ myVideo.getVideoPrivacy }}"/> <br/>
+            <input type="submit" value="Mettre à jour" />
+        </form>
+    </body>
+</html>
